@@ -1,6 +1,6 @@
 ### RabbitMQ Package
 
-This is a [Kurtosis Starlark Package](https://docs.kurtosis.com/explanations/starlark) that allows you to spin up an `n node` RabbitMQ Cluster. It spins up 3 nodes by default but you can tweak it. An etcd instance is also started to manage clustering.
+This is a [Kurtosis Starlark Package](https://docs.kurtosis.com/quickstart) that allows you to spin up an `n node` RabbitMQ Cluster. It spins up 3 nodes by default but you can tweak it. An etcd instance is also started to manage clustering.
 
 ### Run
 
