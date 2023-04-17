@@ -22,7 +22,7 @@ Both the management (15672) and AMQP (5672) ports are exposed.
 
 ### etcd
 
-This package leverages the `kurtosis-etcd-package` to spin up an instance of etcd to manage the RabbitMQ clustering.  Once the etcd instance and the RabbitMQ cluster are up, you can list the RabbitMQ keys in the etcd database.
+This package leverages the [Kurtosis etcd Package](https://github.com/laurentluce/kurtosis-etcd-package) to spin up an instance of etcd to manage the RabbitMQ clustering.  Once the etcd instance and the RabbitMQ cluster are up, you can list the RabbitMQ keys in the etcd database.
 
 ```bash
 $ etcdctl get --prefix /rabbitmq
