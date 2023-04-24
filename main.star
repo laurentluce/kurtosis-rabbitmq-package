@@ -8,10 +8,17 @@ RABBITMQ_NODE_IMAGE = "rabbitmq:3.11.13-management"
 MANAGEMENT_PORT_ID = "management"
 MANAGEMENT_PORT_NUMBER =  15672
 MANAGEMENT_PORT_PROTOCOL = "TCP"
+MANAGEMENT_USERNAME = "manager"
+MANAGEMENT_PASSWORD = "manager"
 
 AMQP_PORT_ID = "amqp"
 AMQP_PORT_NUMBER =  5672
 AMQP_PORT_PROTOCOL = "TCP"
+
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "admin"
+
+VHOST = "test"
 
 FIRST_NODE_INDEX = 0
 
@@ -67,8 +74,19 @@ def run(plan, args):
     check_cluster = ExecRecipe(
         command = ["/bin/sh", "-c", cluster_status_cmd]
     )
-
     plan.wait(recipe = check_cluster, field = "output", assertion = "==", target_value = str(num_nodes), timeout = "5m", service_name = get_first_node_name())
+
+    create_vhost_cmd = "rabbitmqctl add_vhost {}".format(VHOST)
+    delete_guest_user_cmd = "rabbitmqctl delete_user guest"
+    configure_admin_user_cmd = "rabbitmqctl add_user {} {}; rabbitmqctl set_permissions -p {} {} \".*\" \".*\" \".*\"; rabbitmqctl set_user_tags {} administrator".format(
+        ADMIN_USERNAME, ADMIN_PASSWORD, VHOST, ADMIN_USERNAME, ADMIN_USERNAME, ADMIN_PASSWORD)
+    for cmd in (
+        create_vhost_cmd,
+        delete_guest_user_cmd,
+        configure_admin_user_cmd,
+    ):
+        recipe = ExecRecipe(command = ["/bin/sh", "-c", cmd])
+        plan.exec(recipe = recipe, service_name = get_first_node_name())
 
     result =  {"node_names": [node.name for node in started_nodes]}
 

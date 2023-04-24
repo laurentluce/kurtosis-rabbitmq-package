@@ -4,7 +4,7 @@ This is a [Kurtosis Starlark Package](https://docs.kurtosis.com/quickstart) that
 
 ### Run
 
-This assumes you have the [Kurtosis CLI](https://docs.kurtosis.com/cli) installed
+This assumes you have the [Kurtosis CLI](https://docs.kurtosis.com/cli) installed.
 
 Simply run
 
@@ -12,17 +12,17 @@ Simply run
 kurtosis run github.com/laurentluce/kurtosis-rabbitmq-package
 ```
 
-If you want to override the number of nodes,
+If you want to override the number of nodes:
 
 ```
 kurtosis run github.com/laurentluce/kurtosis-rabbitmq-package '{"num_nodes": <required_number_of_nodes>}'
 ```
 
-Both the management (15672) and AMQP (5672) ports are exposed.
+Both the management (15672) and AMQP (5672) ports are exposed.  An administrator user "admin" is created with a default password set to "admin".
 
 ### etcd
 
-This package leverages the [Kurtosis etcd Package](https://github.com/laurentluce/kurtosis-etcd-package) to spin up an instance of etcd to manage the RabbitMQ clustering.  Once the etcd instance and the RabbitMQ cluster are up, you can list the RabbitMQ keys in the etcd database.
+This package leverages the [Kurtosis etcd Package](https://github.com/laurentluce/kurtosis-etcd-package) to spin up an instance of etcd to manage the RabbitMQ clustering.  Once the etcd instance and the RabbitMQ cluster are up, you can list the RabbitMQ keys stored in the etcd database.
 
 ```bash
 $ etcdctl get --prefix /rabbitmq
